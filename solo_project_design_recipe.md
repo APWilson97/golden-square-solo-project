@@ -96,7 +96,7 @@ class Order:
         #   Return a message saying if it is not and don't add anything
     
     def see_all(self):
-        # returns list of orders
+        # returns list of orders and also prints it out for the user
     
     def remove(self, dish):
         # Parameters:
