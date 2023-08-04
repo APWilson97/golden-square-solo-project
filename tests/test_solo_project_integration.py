@@ -3,6 +3,7 @@ from lib.menu import *
 from lib.dishes import *
 from lib.receipt import *
 from lib.delivery import *
+from datetime import datetime, timedelta
 
 """Given three dishes
 We see those dishes reflected in a list with their prices"""
@@ -113,17 +114,28 @@ def test_checking_if_order_is_confirmed_before_text():
     delivery = Delivery(order)
     assert delivery.send_text() == 'Please confirm your order first'
 
-"""Given an order that is confirmed
-We can send a text to the contact about when their order will be delivered
+""" Given an order that is confirmed
+We can send a text to the contact about when their order will be delivered """
 
-dish1 = Dishes('Katsu Curry', 9.99, 'Available')
-dish2 = Dishes('Kitsune Udon', 5.99, 'Available')
-dish3 = Dishes('Tonkotsu Ramen', 7.99, 'Available')
-menu = Menu([dish1, dish2, dish3])
-order = Order()
-order.add(dish1)
-order.add(dish2)
-order.add(dish3)
-order.confirm_order()
-delivery = Delivery(order)
-delivery.send_text() == f"Thank you! Your order was placed and it will be delivered before 12:30"""
+def test_successfully_send_delivery_text():
+    time_now = datetime.now()
+    delivery_time = time_now + timedelta(minutes = 30)
+    time_now_string = time_now.strftime("%H:%M")
+    delivery_time_string = delivery_time.strftime("%H:%M")
+
+    dish1 = Dishes('Katsu Curry', 9.99, 'Available')
+    dish2 = Dishes('Kitsune Udon', 5.99, 'Available')
+    dish3 = Dishes('Tonkotsu Ramen', 7.99, 'Available')
+    menu = Menu([dish1, dish2, dish3])
+    order = Order()
+    order.add(dish1)
+    order.add(dish2)
+    order.add(dish3)
+    order.confirm_order()
+    delivery = Delivery(order)
+    assert delivery.send_text() == f"Thank you! Your order was placed and it will be delivered before {delivery_time_string}"
+
+
+"""Account SID ACfe75e08673d5afa74aa601010539ce2c"""
+"""Auth Token 0bb791f70b359509f9b94f949dc300a2"""
+"""Twilio Phone Number +447401119572"""
