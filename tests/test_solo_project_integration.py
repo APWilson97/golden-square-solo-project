@@ -134,8 +134,3 @@ def test_successfully_send_delivery_text():
     order.confirm_order()
     delivery = Delivery(order)
     assert delivery.send_text() == f"Thank you! Your order was placed and it will be delivered before {delivery_time_string}"
-
-
-"""Account SID ACfe75e08673d5afa74aa601010539ce2c"""
-"""Auth Token 0bb791f70b359509f9b94f949dc300a2"""
-"""Twilio Phone Number +447401119572"""
